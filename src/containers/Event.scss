@@ -1,0 +1,25 @@
+$border-color: #ccc;
+.event-container {
+  margin-top: 20px;
+  padding-top: 20px;
+  margin: 0 auto;
+  display: block;
+  border-top: 1px solid $border-color;
+  padding: 10px;
+  transition: height 200ms;
+
+  .card-container {
+    display: block;
+    padding: 10px;
+  }
+  
+  .span-normal {
+    font-weight: 400;
+  }
+  .span-bold {
+    font-weight: 600;
+  }
+  &:last-of-type {
+    border-bottom: 1px solid $border-color;
+  }
+}
