@@ -6,32 +6,28 @@ class Card extends Component {
   state = {
     events: []
   }
+
   _renderScores(scores, timestamp, i) {
     const scoresList = scores.map((e,i) => {
-      // const { label, score } = e.scores;
-      // console.log(e);
+      if (e.score<this.props.score) return null;
       return (
-        <div className="score-overlay" key={timestamp+i+"scores"}>
-          <p>{ e.label }: { e.score }</p>
-        </div>
+          <div className="score-overlay" key={timestamp+i+"scores"}>
+            <p className="label">{ e.label }: { e.score }</p>
+          </div>
       )
     })
     return scoresList;
   }
-  componentDidMount() {
-    // const height = document.getElementById('scorescontainer').childNodes
-    // height.forEach(x=> {
-    //   x.styles.top = x.clientHeight;
-    // })
-  }
   
-  _renderBoundingBoxes(timestamp) {
+  _renderBoundingBoxes() {
+    const { timestamp } = this.props.data;
+    const { score } = this.props;
     const overlays = this.props.data.predictions.map((e,i) => {
       const { height, left, top, width } = e.boundingBox;
+      if (e.scores.every(s=> s.score<score)) return null;
       return (
         <div key={timestamp+i+"box"}>
           <div className="box-overlay"
-            key={timestamp+i+"box"}
             style={{ 
               height: `calc(100% * ${height})`, 
               left: `calc(100% * ${left})`, 
@@ -57,13 +53,13 @@ class Card extends Component {
   }
 
   render() {
-    const {imageSource, timestamp, videoStream } = this.props.data;
+    const {imageSource, videoStream } = this.props.data;
 
     return (
       <div className="card">
         <div className="image-container">
-          <h2>Scores</h2>
-          { this._renderBoundingBoxes(timestamp) }
+          <h2 className="scores-header">Scores</h2>
+          { this._renderBoundingBoxes() }
           <img className="card-image" src={imageSource} alt={videoStream}/>
         </div>
       </div>

@@ -2,40 +2,41 @@ import React, { Component } from 'react';
 import './App.scss';
 import Event from './Event';
 import Search from './Search';
-import { mockResponse } from '../actions/event_data';
+import { eventsObj } from '../actions/events';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       events: [],
-      filterText: ''
+      name: '',
+      score: 0,
+      label: '',
     }    
-    this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
   componentDidMount() {
     this.setState({
-      events: mockResponse.events
+      events: eventsObj.events
     })
   }
 
- handleFilterTextInput(filterText) {
-    //Call to setState to update the UI
-    console.log(filterText);
-    this.setState({
-      filterText: filterText
-    });
+ handleFilterChange(filtersState) {
+    this.setState(filtersState);
   }
 
   _renderRows() {
+    const {score} = this.state;
     const rows=this.state.events.map((event) => {
-      if (event.videoStream.toLowerCase().indexOf(this.state.filterText) === -1) {
-        return;
-      }
-      console.log(event);      
+      if (event.videoStream.toLowerCase().indexOf(this.state.name) === -1) { return null; }
+      if ( event.predictions.filter(p =>  p.scores.some(s => s.score>=this.state.score)).length===0) { return null; }
       return (
-        <Event key={event.timestamp} event={event} />
+        <Event 
+          key={event.timestamp} 
+          event={event} 
+          score={score}
+        />
       );
     });   
     return rows
@@ -46,14 +47,14 @@ class App extends Component {
       <div className="App">
          <Search
           filterText={this.state.filterText}
-          onFilterTextInput={this.handleFilterTextInput}
+          onFilterChange={this.handleFilterChange}
         />   
         <div className='table'>
           <div>
             <div>Date</div>
             <div>Video Stream</div>
           </div>
-          <div>{this._renderRows(this.state.filterText)}</div>
+          <div>{this._renderRows()}</div>
         </div>
         {/* <Cards events={this.state.events} /> */}
       </div>

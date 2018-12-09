@@ -1,3 +1,5 @@
-const events = require('./event_data');
-export { events };
+var eventsObj = require('./event_data');
+
+eventsObj = eventsObj.mockResponse
+export { eventsObj };
 

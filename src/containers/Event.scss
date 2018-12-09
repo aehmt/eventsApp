@@ -1,16 +1,18 @@
 $border-color: #ccc;
 .event-container {
-  margin-top: 20px;
-  padding-top: 20px;
-  margin: 0 auto;
   display: block;
-  border-top: 1px solid $border-color;
-  padding: 10px;
-  transition: height 200ms;
+  border: solid 1px $border-color;
+  box-shadow: 0 2px 2px $border-color;
+  border-radius: 3px;
+  padding: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+    margin: 0 auto;
+
 
   .card-container {
     display: block;
-    padding: 10px;
   }
   
   .span-normal {
