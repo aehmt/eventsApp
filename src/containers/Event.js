@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../components/Card';
+import PredictionSuccess from '../components/PredictionSuccess';
 import './Event.scss';
 
 class Event extends Component {
@@ -20,6 +21,7 @@ class Event extends Component {
         {
           (showDetails) ?
             <div className="card-container">
+              <PredictionSuccess />
               <Card 
                 data={event}
                 score={score}

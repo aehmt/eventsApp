@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "rimraf build/**/*.map && react-scripts build && git add . && git commit -m 'I make it better' && git push heroku master",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "deploy": "git add . && git commit -m 'I make it better' && git push heroku master",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
