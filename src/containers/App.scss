@@ -5,7 +5,15 @@
   min-width: min-content;
   max-width: 918px;
 
-
+  .table {
+    .table-headers {
+      display: flex;
+      justify-content: center;
+      div {
+        margin: 1rem 1rem 0rem 1rem; 
+      }
+    }
+  }
 }
 
 // .App-logo {

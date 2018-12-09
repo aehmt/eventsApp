@@ -53,6 +53,7 @@ class Card extends Component {
   }
 
   render() {
+    console.log(this.props);
     const {imageSource, videoStream } = this.props.data;
 
     return (

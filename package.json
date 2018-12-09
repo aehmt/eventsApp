@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "deploy": "react-scripts build && rm build/static/js/*.map && git add . && git commit -m 'I make it better' && git push heroku master",
+    "deploy": "react-scripts build && git add . && git commit -m 'I make it better' && git push heroku master",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

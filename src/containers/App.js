@@ -23,13 +23,14 @@ class App extends Component {
   }
 
  handleFilterChange(filtersState) {
-    this.setState(filtersState);
+    this.setState({...filtersState});
   }
 
   _renderRows() {
     const {score} = this.state;
     const rows=this.state.events.map((event) => {
       if (event.videoStream.toLowerCase().indexOf(this.state.name) === -1) { return null; }
+      if ( event.predictions.filter(p =>  p.scores.some(s => s.label.toLowerCase().includes(this.state.label.toLowerCase()))).length===0) { return null; }
       if ( event.predictions.filter(p =>  p.scores.some(s => s.score>=this.state.score)).length===0) { return null; }
       return (
         <Event 
@@ -39,20 +40,23 @@ class App extends Component {
         />
       );
     });   
-    return rows
+    return rows.every(x=>x===null) ? <p>No event found</p> : rows
   }
 
   render() {
     return (
       <div className="App">
          <Search
-          filterText={this.state.filterText}
+          name = { this.state.name }
+          score = { this.state.score }
+          label = { this.state.label }
           onFilterChange={this.handleFilterChange}
         />   
-        <div className='table'>
-          <div>
-            <div>Date</div>
+        <div className="table">
+          <div className="table-headers">
             <div>Video Stream</div>
+            <div> / </div>
+            <div>Date</div>
           </div>
           <div>{this._renderRows()}</div>
         </div>

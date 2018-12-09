@@ -5,52 +5,52 @@ class Search extends Component {
   
   handleFilterChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseInt(value) : value;
+    let val = type === 'number' ? parseInt(value) : value;
+    console.log(name,type,value);
+    // if (type === 'number' && (parseInt(val)<0 || val==='' || isNaN(parseInt(val)))) { val=0 }
     this.props.onFilterChange({ [name]: val });
   } 
 
   render() {
+    const { name, score, label } = this.props;
     return (
-          <form>
-            <h2>Search for an event</h2>
-            <fieldset>
-              <label htmlFor="name">
-                Search for an event by name
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  placeholder="Event name" 
-                  value={this.props.filterText}
-                  onChange={this.handleFilterChange}
-                />
-              </label>
+      <div className="search-container">
+        <label htmlFor="name">
+          Search by name
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="Event name" 
+            value={name}
+            onChange={this.handleFilterChange}
+          />
+        </label>
 
-              <label htmlFor="price">
-                Score 
-                <input 
-                  type="number" 
-                  id="score" 
-                  name="score" 
-                  placeholder="Min Score" 
-                  value={this.props.filterText}
-                  onChange={this.handleFilterChange}
-                />
-              </label>
+        <label htmlFor="price">
+          Minumum score 
+          <input 
+            type="number" 
+            id="score" 
+            name="score" 
+            placeholder="Min Score" 
+            value={score}
+            onChange={this.handleFilterChange}
+          />
+        </label>
 
-              <label htmlFor="label">
-                Potential label           
-                <input
-                  id="label" 
-                  name="label" 
-                  placeholder="Enter a label" 
-                  required 
-                  value={this.props.filterText}
-                  onChange={this.handleFilterChange}
-                />
-              </label>
-            </fieldset>
-          </form>
+        <label htmlFor="label">
+          Potential label           
+          <input
+            id="label" 
+            name="label" 
+            placeholder="Enter a label" 
+            required 
+            value={label}
+            onChange={this.handleFilterChange}
+          />
+        </label>
+      </div>
     );
   }
 }
