@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
-import Event from './Event';
-import Search from './Search';
+import Event from '../components/Event';
+import Search from '../components/Search';
 import { eventsObj } from '../actions/events';
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
     this.setState({...filtersState});
   }
 
-  _renderRows() {
+  _renderFilteredRows() {
     const {score} = this.state;
     const rows=this.state.events.map((event) => {
       if (event.videoStream.toLowerCase().indexOf(this.state.name) === -1) { return null; }
@@ -40,13 +40,13 @@ class App extends Component {
         />
       );
     });   
-    return rows.every(x=>x===null) ? <p>No event found</p> : rows
+    return rows.every(x=>x===null) ? <p>No event found</p> : rows;
   }
 
   render() {
     return (
       <div className="App">
-         <Search
+        <Search
           name = { this.state.name }
           score = { this.state.score }
           label = { this.state.label }
@@ -58,7 +58,7 @@ class App extends Component {
             <div> / </div>
             <div>Date</div>
           </div>
-          <div>{this._renderRows()}</div>
+          <div>{this._renderFilteredRows()}</div>
         </div>
       </div>
     );

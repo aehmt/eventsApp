@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PredictionSuccess from '../components/PredictionSuccess';
 import './Card.scss';
-import { colorArray } from './colors';
+import { colorArray } from './lib/constants';
 
 class Card extends Component {
   constructor() {
