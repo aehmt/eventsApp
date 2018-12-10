@@ -4,14 +4,6 @@ import './Card.scss';
 import { colorArray } from './lib/constants';
 
 class Card extends Component {
-  constructor() {
-    super()
-    this.state = {
-      falsePredictions: [],
-      truePredictions: [],
-    }
-    this.handlePredictionBoolean = this.handlePredictionBoolean.bind(this)
-  }
 
   _renderScores(scores, timestamp, i) {
     const scoresList = scores.map((e,i) => {
@@ -25,35 +17,9 @@ class Card extends Component {
     return scoresList;
   }
   
-  handlePredictionBoolean(name, prevValue, predictionId) {
-    if (name==="true") {
-      this.setState(( prevState ) => { 
-        return {
-          truePredictions: [ 
-            ...this.state.truePredictions,
-            ...[predictionId]
-          ],
-          falsePredictions: prevState.falsePredictions.filter(e=>e!==predictionId)
-        }
-      })
-    }
-    if (name==="false") {
-      this.setState(( prevState ) => {
-        return {
-          falsePredictions: [ 
-            ...this.state.falsePredictions,
-            ...[predictionId]
-          ],
-          truePredictions: prevState.truePredictions.filter(e=>e!==predictionId)
-        }
-      })
-    }
-  }
-
   _renderPredictionBoxes() {
     const { timestamp } = this.props.data;
-    const { score } = this.props;
-    const { truePredictions, falsePredictions } = this.state;
+    const { truePredictions, falsePredictions, score } = this.props;
     const overlays = this.props.data.predictions.map((e,i) => {
       const { height, left, top, width } = e.boundingBox;
       if (e.scores.every(s => s.score<score)) return null;
@@ -68,9 +34,8 @@ class Card extends Component {
               border: `solid 5px ${colorArray[i]}85`
             }} 
           >
-
           { falsePredictions.includes(i) ? <p>FALSE</p> : null } 
-          { truePredictions.includes(i) ? <p style={{color:"#5fff04"}}>TRUE</p> : null }
+          { truePredictions.includes(i) ? <p style={{color:"#5fff04"}}>TRUE</p> : null } 
           </div>
           <div 
             className="scores-container" 
@@ -83,9 +48,10 @@ class Card extends Component {
           { this._renderScores(e.scores, timestamp, i) }
           <PredictionSuccess 
             predictionId={i} 
-            truePredictions={this.state.truePredictions}
-            falsePredictions={this.state.falsePredictions}
-            handleInputChange={this.handlePredictionBoolean} 
+            eventId={timestamp}
+            truePredictions={this.props.truePredictions}
+            falsePredictions={this.props.falsePredictions}
+            handlePredictionSuccess={this.props.handlePredictionSuccess} 
           />
           </div>
         </div>
@@ -99,6 +65,7 @@ class Card extends Component {
 
     return (
       <div className="card">
+        <h2>{videoStream}</h2>
         <div className="image-container">
           <div className="scores-header-container">
             <h2 className="scores-header">Predictions</h2>

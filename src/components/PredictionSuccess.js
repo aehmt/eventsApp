@@ -4,8 +4,9 @@ import './PredictionSuccess.scss';
 class PredictionSuccess extends Component {
   
   handleClick = (e) => {
-    const { name, value } = e.target;
-    this.props.handleInputChange(name, value, this.props.predictionId)
+    const { name } = e.target;
+    const { predictionId, eventId } = this.props
+    this.props.handlePredictionSuccess(name , predictionId, eventId)
   }
   
   render() {

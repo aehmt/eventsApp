@@ -1,39 +1,24 @@
 import React, { Component } from 'react';
-import Card from '../components/Card';
 import './Event.scss';
 
 class Event extends Component {
-  state ={ 
-    showDetails: false,
-  }
 
-  handleShowDetails = () => { 
-    this.setState(prevState => ({ showDetails: !prevState.showDetails }));
+  handleShowDetails = () => {
+    this.props.handleShowDetails(this.props.event) 
   }
 
   render() {
-    const { videoStream, timestamp } = this.props.event;
-    const { score,event } = this.props;
-    const { showDetails } = this.state;
+    const { timestamp } = this.props.event;
+    const { selectedEvent } = this.props;
+    const active = selectedEvent===timestamp ? " active" : ""
     let readableDate = new Date(timestamp*1000).toString();
     return (
-      <div key={timestamp} className="event-container">
-        <span 
-          className={showDetails ? "span bold" : "span normal" }
-          onClick={ this.handleShowDetails }
-        >
-          {videoStream} / {readableDate.split(' ').slice(0,5).join(' ')} {"PDT"}
-        </span>
-        {
-          (showDetails) ?
-            <div className="card-container">
-              <Card 
-                data={event}
-                score={score}
-              />
-            </div>
-          : null
-        }
+      <div 
+        key={timestamp} 
+        className={"event-container" + active }
+        onClick={ this.handleShowDetails }
+      >
+        <span>{readableDate.split(' ').slice(0,5).join(' ')} {"PDT"}</span>
       </div>
     );
   }
