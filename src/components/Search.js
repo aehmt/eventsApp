@@ -38,7 +38,7 @@ class Search extends Component {
         </label>
 
         <label htmlFor="label">
-          Potential label           
+          Prediction label           
           <input
             id="label" 
             name="label" 
