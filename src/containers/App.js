@@ -60,7 +60,6 @@ class App extends Component {
           </div>
           <div>{this._renderRows()}</div>
         </div>
-        {/* <Cards events={this.state.events} /> */}
       </div>
     );
   }

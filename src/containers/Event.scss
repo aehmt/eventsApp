@@ -12,11 +12,21 @@ $border-color: #ccc;
     display: block;
   }
   
-  .span-normal {
-    font-weight: 400;
-  }
-  .span-bold {
-    font-weight: 600;
+  span {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: $border-color;
+    box-shadow: 0 2px 2px $border-color;
+    &:hover {
+      box-shadow: 0 2px 4px $border-color;
+    }
+    .normal {
+      font-weight: 400;
+    }
+    .bold {
+      font-weight: 600;
+    }
   }
   &:last-of-type {
     border-bottom: 1px solid $border-color;

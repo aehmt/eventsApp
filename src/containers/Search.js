@@ -6,8 +6,6 @@ class Search extends Component {
   handleFilterChange = (e) => {
     const { name, type, value } = e.target;
     let val = type === 'number' ? parseInt(value) : value;
-    console.log(name,type,value);
-    // if (type === 'number' && (parseInt(val)<0 || val==='' || isNaN(parseInt(val)))) { val=0 }
     this.props.onFilterChange({ [name]: val });
   } 
 

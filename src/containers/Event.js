@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Card from '../components/Card';
-import PredictionSuccess from '../components/PredictionSuccess';
 import './Event.scss';
 
 class Event extends Component {
-  state ={ showDetails: false }
+  state ={ 
+    showDetails: false,
+  }
 
   handleShowDetails = () => { 
     this.setState(prevState => ({ showDetails: !prevState.showDetails }));
@@ -16,24 +17,26 @@ class Event extends Component {
     const { showDetails } = this.state;
     let readableDate = new Date(timestamp*1000).toString();
     return (
-      <div key={timestamp} onClick={ this.handleShowDetails } className="event-container">
-        <span className={showDetails ? "span-bold" : "span-normal" }>{videoStream} / {readableDate.split(' ').slice(0,5).join(' ')} {"PDT"}</span>
+      <div key={timestamp} className="event-container">
+        <span 
+          className={showDetails ? "span bold" : "span normal" }
+          onClick={ this.handleShowDetails }
+        >
+          {videoStream} / {readableDate.split(' ').slice(0,5).join(' ')} {"PDT"}
+        </span>
         {
           (showDetails) ?
             <div className="card-container">
-              <PredictionSuccess />
               <Card 
                 data={event}
                 score={score}
               />
             </div>
-            : null
-          
+          : null
         }
       </div>
     );
   }
 }
 
-//<img src={this.props.event.imageSource} alt=""/>
 export default Event;

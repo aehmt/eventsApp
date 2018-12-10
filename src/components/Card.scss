@@ -1,5 +1,5 @@
 .card {
-  padding-top: 50px;
+  margin-top: 50px;
   color: black;
   .image-container {
     position: relative;
@@ -14,29 +14,31 @@
       height: auto;
     }
 
-    .scores-header {
-      position: absolute;
-      margin: 0;
-      color: black;
-      background: yellow;
-      padding: 0.2rem;
-      width: auto;
-      top: -2rem;
-      right: -1.5rem;
-      font-size: 1rem;
-      line-height: 16px;
-      font-weight: 500;
-      z-index: 101;
-      position: absolute;
-      @media all and (max-width: 720px){
-          font-size: 0.8rem !important;
-          padding: 0.1rem;
-      }
-      @media all and (max-width: 640px){
-            font-size: 0.7rem !important;
-      }
-      @media all and (max-width: 320px){
-          font-size: 0.6rem !important;
+    .scores-header-container {
+      .scores-header {
+        position: absolute;
+        margin: 0;
+        color: black;
+        background: yellow;
+        padding: 0.2rem;
+        width: auto;
+        top: -2rem;
+        right: -1.5rem;
+        font-size: 1rem;
+        line-height: 16px;
+        font-weight: 500;
+        z-index: 101;
+        position: absolute;
+        @media all and (max-width: 720px){
+            font-size: 0.8rem !important;
+            padding: 0.1rem;
+        }
+        @media all and (max-width: 640px){
+              font-size: 0.7rem !important;
+        }
+        @media all and (max-width: 320px){
+            font-size: 0.6rem !important;
+        }
       }
     }
     .box-overlay {
@@ -44,6 +46,12 @@
       width: max-content;
       z-index: 100;
       box-sizing: border-box; 
+      p {
+        font-size: 1.7rem;
+        color: red;
+        font-weight: 500;
+        transform: rotate(-45deg);
+      }
     }
     .scores-container {
       position: absolute;
@@ -57,6 +65,8 @@
       z-index: 101;
       .score-overlay {
         position: relative;
+        display: flex;
+        justify-content: space-between;
         p.label {
           margin: 0px;
           font-size: inherit;
