@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   handlePredictionSuccess(name, predictionId, eventId) {
-    if (name==='true') {
+    if (name==='true' && !this.state[eventId].truePredictions.includes(predictionId)) {
       this.setState(prevState => ({
         [eventId]: {
           ...prevState[eventId],
@@ -44,7 +44,7 @@ class App extends Component {
         },
       }));
     }
-    if (name==='false') {
+    if (name==='false' && !this.state[eventId].falsePredictions.includes(predictionId)) {
       this.setState(prevState => ({
         [eventId]: {
           ...prevState[eventId],
