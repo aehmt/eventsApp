@@ -21,37 +21,45 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      events: eventsObj.events
-    })
+    let tempEventObj={}
     eventsObj.events.forEach(x => {
-      this.setState({
-        [x.timestamp]: {
-          truePredictions: [],
-          falsePredictions: [],
-        }
-      }) 
+      tempEventObj[x.timestamp]= {
+        truePredictions: [],
+        falsePredictions: [],
+      }
+    })
+    this.setState({
+      events: eventsObj.events,
+      eventStates: tempEventObj
     })
   }
 
   handlePredictionSuccess(name, predictionId, eventId) {
-    if (name==='true' && !this.state[eventId].truePredictions.includes(predictionId)) {
-      this.setState(prevState => ({
-        [eventId]: {
-          ...prevState[eventId],
-          truePredictions: [ ...prevState[eventId].truePredictions, predictionId ],
-          falsePredictions: [ ...prevState[eventId].falsePredictions.filter(x=>x!==predictionId) ],
-        },
-      }));
+    if (name==='true' && !this.state.eventStates[eventId].truePredictions.includes(predictionId)) {
+      this.setState({
+        ...this.state,
+        eventStates: {
+          ...this.state.eventStates,
+          [eventId]: {
+            ...this.state.eventStates[eventId],
+            truePredictions: [ ...this.state.eventStates[eventId].truePredictions, predictionId ],
+            falsePredictions: [ ...this.state.eventStates[eventId].falsePredictions.filter(x=>x!==predictionId) ],
+          }
+        }
+      });
     }
-    if (name==='false' && !this.state[eventId].falsePredictions.includes(predictionId)) {
-      this.setState(prevState => ({
-        [eventId]: {
-          ...prevState[eventId],
-          falsePredictions: [...prevState[eventId].falsePredictions ,predictionId ],
-          truePredictions: [ ...prevState[eventId].truePredictions.filter(x=>x!==predictionId) ],
-        },
-      }));
+    if (name==='false' && !this.state.eventStates[eventId].falsePredictions.includes(predictionId)) {
+      this.setState({
+        ...this.state,
+        eventStates: {
+          ...this.state.eventStates,
+          [eventId]: {
+            ...this.state.eventStates[eventId],
+            truePredictions: [ ...this.state.eventStates[eventId].truePredictions.filter(x=>x!==predictionId) ],
+            falsePredictions: [ ...this.state.eventStates[eventId].falsePredictions, predictionId ],
+          }
+        }
+      });
     }
   }
 
@@ -106,8 +114,8 @@ class App extends Component {
                 <Card 
                   score={score}
                   data ={selectedEvent}
-                  falsePredictions={this.state[selectedEvent.timestamp].falsePredictions}
-                  truePredictions={this.state[selectedEvent.timestamp].truePredictions}
+                  falsePredictions={this.state.eventStates[selectedEvent.timestamp].falsePredictions}
+                  truePredictions={this.state.eventStates[selectedEvent.timestamp].truePredictions}
                   handlePredictionSuccess={this.handlePredictionSuccess} 
                 />
                 : null
