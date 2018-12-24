@@ -31,6 +31,7 @@ class App extends Component {
     this.setState({
       events: eventsObj.events,
       eventStates: tempEventObj
+      // eventStates: {}
     })
   }
 
@@ -92,7 +93,7 @@ class App extends Component {
   }
 
   render() {
-    const { selectedEvent, score, name, label } = this.state;
+    const { selectedEvent, score, name, label, eventStates } = this.state;
     return (
       <div className="App">
         <Search
@@ -114,8 +115,8 @@ class App extends Component {
                 <Card 
                   score={score}
                   data ={selectedEvent}
-                  falsePredictions={this.state.eventStates[selectedEvent.timestamp].falsePredictions}
-                  truePredictions={this.state.eventStates[selectedEvent.timestamp].truePredictions}
+                  falsePredictions={eventStates[selectedEvent.timestamp].falsePredictions}
+                  truePredictions={eventStates[selectedEvent.timestamp].truePredictions}
                   handlePredictionSuccess={this.handlePredictionSuccess} 
                 />
                 : null
