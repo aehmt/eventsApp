@@ -1,4 +1,4 @@
-### Purpose of the App:
+## Purpose of the App:
 Events have an associated video stream, a timestamp in seconds, and an image source that links to an image of the event, and one or more predictions. Each prediction has a bounding box indicating the location of an object of interest within the image, and one or more scores indicating potential labels for that object.
 
 ## Available Scripts
